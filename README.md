@@ -1,6 +1,12 @@
 # MuhWebby
 Its a website that i put things on. Finally getting around to doing this :3
 
+## TODO
+1) Setup
+   - Folder structure
+   - Basic navigation to placeholder / Routing
+   - Structure of Landing page
+2) 
 
 # Astro Starter Kit: Basics
 
