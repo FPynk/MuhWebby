@@ -1,0 +1,252 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap");
+
+@font-face {
+	font-family: "VT323";
+	src: url("/fonts/VT323-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+	line-height: 1.6;
+	color: #0f172a;
+	background: #f8fafc;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+a {
+	color: #2563eb;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.site-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem 1.5rem;
+	background: #0f172a;
+	color: #e2e8f0;
+}
+
+.brand {
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	color: inherit;
+}
+
+.site-nav {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.site-nav a {
+	color: #cbd5e1;
+}
+
+.site-nav a:hover {
+	color: #ffffff;
+}
+
+.site-main {
+	flex: 1;
+	width: 100%;
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 2rem 1.5rem;
+}
+
+.page-block {
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.page-block + .page-block {
+	margin-top: 1rem;
+}
+
+h1 {
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.site-footer {
+	padding: 1rem 1.5rem;
+	text-align: center;
+	background: #0f172a;
+	color: #cbd5e1;
+}
+
+/* Experimental playground styles */
+.exp-hero {
+	display: grid;
+	gap: 1rem;
+	padding: 1.25rem 1.5rem;
+	border: 1px solid #e2e8f0;
+	border-radius: 14px;
+	background: radial-gradient(circle at 20% 20%, rgba(255, 247, 230, 0.8), #fff),
+		linear-gradient(135deg, #0f172a 0%, #1f2937 30%, #fff 65%);
+	box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.exp-hero-top {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+
+.exp-icon {
+	width: 64px;
+	height: 64px;
+	color: #facc15;
+	flex-shrink: 0;
+}
+
+.exp-title-block {
+	min-width: 0;
+}
+
+.exp-title {
+	font-family: "VT323", "IBM Plex Mono", monospace;
+	font-weight: 700;
+	font-size: clamp(2rem, 5vw, 2.8rem);
+	line-height: 1;
+	margin: 0 0 0.4rem;
+	color: #0f172a;
+}
+
+.exp-subtitle {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+	color: #475569;
+	font-size: 0.9rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.exp-subtitle img {
+	height: 1.75rem;
+	width: auto;
+	object-fit: contain;
+	border-radius: 8px;
+}
+
+.exp-key {
+	color: #475569;
+	font-size: 0.8rem;
+	font-family: "IBM Plex Mono", monospace;
+}
+
+.exp-link {
+	color: #475569;
+	text-decoration: none;
+}
+
+.exp-link:hover {
+	color: #0f172a;
+	text-decoration: underline;
+}
+
+.exp-card {
+	position: relative;
+	padding: 1.25rem 1.5rem;
+	border-radius: 14px;
+	border: 2px solid #3b82f6;
+	background: rgba(30, 64, 175, 0.9);
+	color: #bfdbfe;
+	box-shadow: 0 14px 36px rgba(30, 64, 175, 0.25);
+	overflow: hidden;
+}
+
+.scanlines {
+	position: relative;
+}
+
+.scanlines::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background-image: repeating-linear-gradient(
+		to bottom,
+		rgba(255, 255, 255, 0.05) 0,
+		rgba(255, 255, 255, 0.05) 1px,
+		transparent 1px,
+		transparent 3px
+	);
+	opacity: 0.35;
+}
+
+.exp-card-top {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	position: relative;
+	z-index: 1;
+}
+
+.exp-card-icon {
+	color: #60a5fa;
+	width: 36px;
+	height: 36px;
+	flex-shrink: 0;
+}
+
+.exp-card-title {
+	font-family: "VT323", "IBM Plex Mono", monospace;
+	font-size: clamp(2.2rem, 5vw, 3rem);
+	margin: 0;
+	color: #bfdbfe;
+	letter-spacing: 0.02em;
+	line-height: 1;
+}
+
+.exp-card-subtitle {
+	margin: 0.25rem 0 0;
+	color: #bfdbfe;
+	opacity: 0.9;
+	font-size: 0.9rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+	.exp-hero-top {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.exp-subtitle {
+		justify-content: flex-start;
+	}
+}
