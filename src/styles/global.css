@@ -78,7 +78,7 @@ a:hover {
 }
 
 .brand {
-	font-weight: 700;
+	font-weight: 400;
 	letter-spacing: 0.02em;
 	color: inherit;
 }
@@ -92,6 +92,7 @@ a:hover {
 
 .site-nav a {
 	color: var(--nav-link);
+	font-weight: 400;
 }
 
 .site-nav a:hover {
