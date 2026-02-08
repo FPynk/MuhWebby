@@ -1,9 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=VT323&display=swap");
+
+@font-face {
+	font-family: "VT323";
+	src: url("/fonts/VT323-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
 
 :root {
 	font-family: "Trebuchet MS", "Segoe UI", sans-serif;
 	line-height: 1.6;
 	color-scheme: light dark;
+	--font-special: "VT323", "Geist Mono";
 	--background: #f8fafc;
 	--foreground: #0f172a;
 	--link: #2563eb;
@@ -123,6 +132,14 @@ a:hover {
 .site-main li,
 .site-main a {
 	font-weight: 400;
+}
+
+/* Utility for optional retro-styled text blocks/headings. */
+.font-special {
+	font-family: var(--font-special);
+	font-weight: 400;
+	line-height: 1;
+	letter-spacing: 0.02em;
 }
 
 .page-block {
