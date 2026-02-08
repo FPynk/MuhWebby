@@ -105,6 +105,24 @@ a:hover {
 	max-width: 960px;
 	margin: 0 auto;
 	padding: 2rem 1.5rem;
+	font-family: "Geist Mono", ui-monospace;
+	font-weight: 400;
+}
+
+.site-main h1,
+.site-main h2,
+.site-main h3,
+.site-main h4,
+.site-main h5,
+.site-main h6 {
+	font-family: "Geist Mono", ui-monospace;
+	font-weight: 700;
+}
+
+.site-main p,
+.site-main li,
+.site-main a {
+	font-weight: 400;
 }
 
 .page-block {
