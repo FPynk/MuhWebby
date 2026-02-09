@@ -3,8 +3,71 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Pong">
-	<section class="page-block">
+	<section class="page-block pong-page">
 		<h1>Pong</h1>
-		<p>Trying to figure out how to put Pong here</p>
+		<p class="pong-copy">
+			Controls: <kbd>W</kbd>/<kbd>S</kbd> move your paddle. First to 7 wins.
+		</p>
+		<div class="pong-stage">
+			<canvas
+				id="pong"
+				width="800"
+				height="480"
+				role="img"
+				aria-label="Playable Pong game area"
+			></canvas>
+		</div>
 	</section>
+
+	<script>
+		import { initPong } from "../../scripts/pong";
+
+		const canvas = document.getElementById("pong");
+		if (canvas instanceof HTMLCanvasElement) {
+			const cleanup = initPong(canvas, { winningScore: 7, serveDelayMs: 900 });
+			window.addEventListener("pagehide", cleanup, { once: true });
+		}
+	</script>
 </BaseLayout>
+
+<style>
+	.pong-page {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.pong-copy {
+		margin-bottom: 0;
+	}
+
+	.pong-copy kbd {
+		display: inline-block;
+		padding: 0.05rem 0.4rem;
+		border: 1px solid var(--surface-border);
+		border-radius: 4px;
+		background: color-mix(in srgb, var(--surface) 80%, var(--foreground) 20%);
+		font-family: "Geist Mono", "Geist Mono Local", ui-monospace;
+		font-size: 0.9rem;
+		line-height: 1.2;
+	}
+
+	.pong-stage {
+		width: 100%;
+		max-width: 800px;
+		margin-inline: auto;
+		padding: 0.5rem;
+		border: 1px solid var(--surface-border);
+		border-radius: 12px;
+		background: color-mix(in srgb, var(--surface) 92%, black 8%);
+		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--surface-border) 75%, transparent);
+	}
+
+	#pong {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 3;
+		border-radius: 8px;
+		image-rendering: crisp-edges;
+	}
+</style>
