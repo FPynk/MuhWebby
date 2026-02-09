@@ -244,9 +244,15 @@ export function initPong(
 
 	const handleKeyDown = (event: KeyboardEvent): void => {
 		const { key } = event;
-		if (key === "w" || key === "W") {
+		if (key === "ArrowUp") {
+			event.preventDefault();
+		}
+		if (key === "ArrowDown") {
+			event.preventDefault();
+		}
+		if (key === "w" || key === "W" || key === "ArrowUp") {
 			input.up = true;
-		} else if (key === "s" || key === "S") {
+		} else if (key === "s" || key === "S" || key === "ArrowDown") {
 			input.down = true;
 		} else if ((key === "r" || key === "R") && state.winner) {
 			resetMatch();
@@ -255,9 +261,12 @@ export function initPong(
 
 	const handleKeyUp = (event: KeyboardEvent): void => {
 		const { key } = event;
-		if (key === "w" || key === "W") {
+		if (key === "ArrowUp" || key === "ArrowDown") {
+			event.preventDefault();
+		}
+		if (key === "w" || key === "W" || key === "ArrowUp") {
 			input.up = false;
-		} else if (key === "s" || key === "S") {
+		} else if (key === "s" || key === "S" || key === "ArrowDown") {
 			input.down = false;
 		}
 	};
