@@ -1,6 +1,8 @@
 type PongOptions = {
 	winningScore?: number;
 	serveDelayMs?: number;
+	startOverlay?: HTMLElement | null;
+	startButton?: HTMLButtonElement | null;
 };
 
 type Winner = "left" | "right" | null;
@@ -32,6 +34,8 @@ export function initPong(
 
 	const winningScore = Math.max(1, Math.floor(options.winningScore ?? 7));
 	const serveDelaySeconds = Math.max(0, (options.serveDelayMs ?? 900) / 1000);
+	const startOverlay = options.startOverlay ?? null;
+	const startButton = options.startButton ?? null;
 
 	const paddleWidth = 14;
 	const paddleHeight = 92;
@@ -65,6 +69,17 @@ export function initPong(
 	const input = {
 		up: false,
 		down: false,
+	};
+
+	let started = false;
+
+	const startGame = (): void => {
+		if (started) {
+			return;
+		}
+		started = true;
+		startOverlay?.classList.add("is-hidden");
+		startButton?.blur();
 	};
 
 	const resetBall = (direction: 1 | -1): void => {
@@ -150,6 +165,10 @@ export function initPong(
 		}
 		state.leftY = clamp(state.leftY, 0, height - paddleHeight);
 
+		if (!started) {
+			return;
+		}
+
 		const aiTargetY =
 			state.ballVx > 0 ? state.ballY - paddleHeight / 2 : height / 2 - paddleHeight / 2;
 		const aiDelta = aiTargetY - state.rightY;
@@ -234,7 +253,9 @@ export function initPong(
 
 		ctx.font = '500 18px "Geist Mono Local", "Geist Mono", ui-monospace';
 		ctx.textBaseline = "bottom";
-		if (state.winner) {
+		if (!started) {
+			ctx.fillText("Press W/S or \u2191/\u2193 to start", width / 2, height - 18);
+		} else if (state.winner) {
 			const winnerLabel = state.winner === "left" ? "You win!" : "CPU wins!";
 			ctx.fillText(`${winnerLabel} Press R to restart`, width / 2, height - 18);
 		} else if (state.serveTimer > 0) {
@@ -244,15 +265,23 @@ export function initPong(
 
 	const handleKeyDown = (event: KeyboardEvent): void => {
 		const { key } = event;
+		const isUpKey = key === "w" || key === "W" || key === "ArrowUp";
+		const isDownKey = key === "s" || key === "S" || key === "ArrowDown";
+
 		if (key === "ArrowUp") {
 			event.preventDefault();
 		}
 		if (key === "ArrowDown") {
 			event.preventDefault();
 		}
-		if (key === "w" || key === "W" || key === "ArrowUp") {
+
+		if (!started && (isUpKey || isDownKey)) {
+			startGame();
+		}
+
+		if (isUpKey) {
 			input.up = true;
-		} else if (key === "s" || key === "S" || key === "ArrowDown") {
+		} else if (isDownKey) {
 			input.down = true;
 		} else if ((key === "r" || key === "R") && state.winner) {
 			resetMatch();
@@ -279,6 +308,7 @@ export function initPong(
 	window.addEventListener("keydown", handleKeyDown);
 	window.addEventListener("keyup", handleKeyUp);
 	window.addEventListener("blur", clearInput);
+	startButton?.addEventListener("click", startGame);
 
 	resetMatch();
 	render();
@@ -312,5 +342,6 @@ export function initPong(
 		window.removeEventListener("keydown", handleKeyDown);
 		window.removeEventListener("keyup", handleKeyUp);
 		window.removeEventListener("blur", clearInput);
+		startButton?.removeEventListener("click", startGame);
 	};
 }
