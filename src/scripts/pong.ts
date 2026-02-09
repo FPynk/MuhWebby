@@ -47,7 +47,8 @@ export function initPong(
 	const paddleSpeed = 460;
 	const aiSpeed = 350;
 	const ballRadius = 8;
-	const baseBallSpeed = 360;
+	const minServeBallSpeed = 300;
+	const maxServeBallSpeed = 460;
 	const maxBallSpeed = 900;
 	const maxBounceAngle = Math.PI / 3;
 
@@ -106,7 +107,7 @@ export function initPong(
 
 	const resetBall = (direction: 1 | -1): void => {
 		state.ballX = width / 2;
-		state.ballY = height / 2;
+		state.ballY = ballRadius + Math.random() * (height - ballRadius * 2);
 		state.ballVx = 0;
 		state.ballVy = 0;
 		state.serveDirection = direction;
@@ -115,8 +116,10 @@ export function initPong(
 
 	const launchBall = (): void => {
 		const serveAngle = (Math.random() * 2 - 1) * (Math.PI / 8);
-		state.ballVx = state.serveDirection * baseBallSpeed * Math.cos(serveAngle);
-		state.ballVy = baseBallSpeed * Math.sin(serveAngle);
+		const serveSpeed =
+			minServeBallSpeed + Math.random() * (maxServeBallSpeed - minServeBallSpeed);
+		state.ballVx = state.serveDirection * serveSpeed * Math.cos(serveAngle);
+		state.ballVy = serveSpeed * Math.sin(serveAngle);
 	};
 
 	const resetMatch = (): void => {
