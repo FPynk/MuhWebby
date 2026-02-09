@@ -201,13 +201,15 @@ p {
 /* Pong page */
 .pong-page {
 	display: grid;
-	gap: 1rem;
+	gap: 0.333rem;
+	padding-top: 0.9rem;
 }
 
 .pong-page h1 {
 	font-family: var(--font-special);
 	font-weight: 400;
-	font-size: calc(2rem + 2px);
+	font-size: calc(3rem);
+	margin-bottom: 0.167rem;
 }
 
 .pong-copy {
@@ -260,7 +262,6 @@ p {
 	color: var(--foreground);
 	background: color-mix(in srgb, var(--surface) 90%, transparent);
 	backdrop-filter: blur(2px);
-	cursor: pointer;
 }
 
 .pong-pause-overlay {
@@ -343,7 +344,6 @@ p {
 	font-weight: 600;
 	color: var(--foreground);
 	background: var(--surface);
-	cursor: pointer;
 }
 
 @media (prefers-color-scheme: light) {
