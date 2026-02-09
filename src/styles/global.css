@@ -75,6 +75,7 @@ body {
 	flex-direction: column;
 	color: var(--foreground);
 	background: var(--background);
+	cursor: url("/cursors/cLoNe 01.cur"), auto;
 }
 
 a {
@@ -85,6 +86,16 @@ a {
 
 a:hover {
 	text-decoration: underline;
+}
+
+a:hover,
+button:hover,
+[role="button"]:hover,
+summary:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+	cursor: url("/cursors/cLoNe oLd.cur"), pointer;
 }
 
 .site-header {
@@ -99,7 +110,6 @@ a:hover {
 	border-style: solid;
 	border-color: var(--header-border);
 	border-width: 0 0 1px;
-	cursor: url("https://www.pizzint.watch/piz_normal_p1.cur"), auto;
 }
 
 .brand {
