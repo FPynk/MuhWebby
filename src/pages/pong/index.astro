@@ -6,9 +6,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 	<section class="page-block pong-page">
 		<h1>Pong</h1>
 		<p class="pong-copy">
-			Controls: <kbd>W</kbd>/<kbd>S</kbd> or <kbd>↑</kbd>/<kbd>↓</kbd> move your paddle. First to 7 wins.
+			Controls: <kbd>W</kbd>/<kbd>S</kbd> or <kbd>↑</kbd>/<kbd>↓</kbd> move your paddle. Press <kbd>P</kbd> to
+			pause. First to 7 wins.
 		</p>
 		<div class="pong-stage">
+			<button id="pong-pause-button" class="pong-pause-button" type="button" aria-pressed="false">Pause</button>
 			<canvas
 				id="pong"
 				width="800"
@@ -16,6 +18,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 				role="img"
 				aria-label="Playable Pong game area"
 			></canvas>
+			<div id="pong-pause-overlay" class="pong-pause-overlay is-hidden">
+				<p class="pong-pause-title">Paused</p>
+				<p class="pong-pause-copy">Press <kbd>P</kbd> or use the top-right button to resume</p>
+			</div>
 			<div id="pong-start-overlay" class="pong-start-overlay">
 				<p class="pong-start-title">Ready for a round?</p>
 				<button id="pong-start-button" type="button">Start Game</button>
@@ -30,12 +36,16 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 		const canvas = document.getElementById("pong");
 		const startOverlay = document.getElementById("pong-start-overlay");
 		const startButton = document.getElementById("pong-start-button");
+		const pauseOverlay = document.getElementById("pong-pause-overlay");
+		const pauseButton = document.getElementById("pong-pause-button");
 		if (canvas instanceof HTMLCanvasElement) {
 			const cleanup = initPong(canvas, {
 				winningScore: 7,
 				serveDelayMs: 900,
 				startOverlay: startOverlay instanceof HTMLElement ? startOverlay : null,
 				startButton: startButton instanceof HTMLButtonElement ? startButton : null,
+				pauseOverlay: pauseOverlay instanceof HTMLElement ? pauseOverlay : null,
+				pauseButton: pauseButton instanceof HTMLButtonElement ? pauseButton : null,
 			});
 			window.addEventListener("pagehide", cleanup, { once: true });
 		}
@@ -84,9 +94,65 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 		image-rendering: crisp-edges;
 	}
 
+	.pong-pause-button {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 5;
+		border: 1px solid var(--surface-border);
+		border-radius: 999px;
+		padding: 0.35rem 0.85rem;
+		font-family: "Geist Mono", "Geist Mono Local", ui-monospace;
+		font-size: 0.84rem;
+		font-weight: 600;
+		color: var(--foreground);
+		background: color-mix(in srgb, var(--surface) 90%, transparent);
+		backdrop-filter: blur(2px);
+		cursor: pointer;
+	}
+
+	.pong-pause-overlay {
+		position: absolute;
+		inset: 0.5rem;
+		z-index: 3;
+		display: grid;
+		align-content: center;
+		justify-items: center;
+		gap: 0.45rem;
+		padding: 1rem;
+		border-radius: 8px;
+		background: rgba(15, 23, 42, 0.72);
+		color: #f8fafc;
+		text-align: center;
+		transition: opacity 180ms ease, visibility 180ms ease;
+	}
+
+	.pong-pause-title {
+		margin-bottom: 0;
+		font-size: 1.2rem;
+		font-weight: 700;
+	}
+
+	.pong-pause-copy {
+		margin-bottom: 0;
+		font-size: 0.92rem;
+	}
+
+	.pong-pause-copy kbd {
+		display: inline-block;
+		padding: 0.05rem 0.4rem;
+		border: 1px solid rgba(248, 250, 252, 0.4);
+		border-radius: 4px;
+		background: rgba(248, 250, 252, 0.12);
+		font-family: "Geist Mono", "Geist Mono Local", ui-monospace;
+		font-size: 0.9rem;
+		line-height: 1.2;
+	}
+
 	.pong-start-overlay {
 		position: absolute;
 		inset: 0.5rem;
+		z-index: 6;
 		display: grid;
 		align-content: center;
 		justify-items: center;
@@ -99,7 +165,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 		transition: opacity 180ms ease, visibility 180ms ease;
 	}
 
-	.pong-start-overlay.is-hidden {
+	.pong-start-overlay.is-hidden,
+	.pong-pause-overlay.is-hidden {
 		opacity: 0;
 		visibility: hidden;
 		pointer-events: none;

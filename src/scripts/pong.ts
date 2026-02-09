@@ -3,6 +3,8 @@ type PongOptions = {
 	serveDelayMs?: number;
 	startOverlay?: HTMLElement | null;
 	startButton?: HTMLButtonElement | null;
+	pauseOverlay?: HTMLElement | null;
+	pauseButton?: HTMLButtonElement | null;
 };
 
 type Winner = "left" | "right" | null;
@@ -36,6 +38,8 @@ export function initPong(
 	const serveDelaySeconds = Math.max(0, (options.serveDelayMs ?? 900) / 1000);
 	const startOverlay = options.startOverlay ?? null;
 	const startButton = options.startButton ?? null;
+	const pauseOverlay = options.pauseOverlay ?? null;
+	const pauseButton = options.pauseButton ?? null;
 
 	const paddleWidth = 14;
 	const paddleHeight = 92;
@@ -72,6 +76,7 @@ export function initPong(
 	};
 
 	let started = false;
+	let paused = false;
 
 	const startGame = (): void => {
 		if (started) {
@@ -80,6 +85,23 @@ export function initPong(
 		started = true;
 		startOverlay?.classList.add("is-hidden");
 		startButton?.blur();
+	};
+
+	const setPaused = (nextPaused: boolean): void => {
+		if (!started) {
+			return;
+		}
+		paused = nextPaused;
+		clearInput();
+		pauseOverlay?.classList.toggle("is-hidden", !paused);
+		if (pauseButton) {
+			pauseButton.textContent = paused ? "Resume" : "Pause";
+			pauseButton.setAttribute("aria-pressed", String(paused));
+		}
+	};
+
+	const togglePause = (): void => {
+		setPaused(!paused);
 	};
 
 	const resetBall = (direction: 1 | -1): void => {
@@ -166,6 +188,9 @@ export function initPong(
 		state.leftY = clamp(state.leftY, 0, height - paddleHeight);
 
 		if (!started) {
+			return;
+		}
+		if (paused) {
 			return;
 		}
 
@@ -274,9 +299,17 @@ export function initPong(
 		if (key === "ArrowDown") {
 			event.preventDefault();
 		}
+		if ((key === "p" || key === "P") && !event.repeat) {
+			togglePause();
+			return;
+		}
 
 		if (!started && (isUpKey || isDownKey)) {
 			startGame();
+		}
+
+		if (paused) {
+			return;
 		}
 
 		if (isUpKey) {
@@ -309,8 +342,10 @@ export function initPong(
 	window.addEventListener("keyup", handleKeyUp);
 	window.addEventListener("blur", clearInput);
 	startButton?.addEventListener("click", startGame);
+	pauseButton?.addEventListener("click", togglePause);
 
 	resetMatch();
+	setPaused(false);
 	render();
 
 	let rafId = 0;
@@ -343,5 +378,6 @@ export function initPong(
 		window.removeEventListener("keyup", handleKeyUp);
 		window.removeEventListener("blur", clearInput);
 		startButton?.removeEventListener("click", startGame);
+		pauseButton?.removeEventListener("click", togglePause);
 	};
 }
