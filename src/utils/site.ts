@@ -9,5 +9,5 @@
  */
 export const withBase = (path = ""): string => {
 	const normalizedPath = path.startsWith("/") ? path.slice(1) : path;
-	return `${import.meta.env.BASE_URL}${normalizedPath}`;
+	return `${import.meta.env.BASE_URL}/${normalizedPath}`;
 };
