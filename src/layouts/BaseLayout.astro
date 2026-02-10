@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { withBase } from "../utils/site";
 
 const { title = "MuhWebby" } = Astro.props;
 ---
@@ -9,19 +10,19 @@ const { title = "MuhWebby" } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
+		<link rel="icon" href={withBase("favicon.ico")} />
 		<title>{title}</title>
 	</head>
 	<body>
 		<header class="site-header">
-			<a class="brand font-special" href="/">Andrew Loh</a>
+			<a class="brand font-special" href={withBase()}>Andrew Loh</a>
 			<nav class="site-nav">
-				<a href="/">Home</a>
-				<a href="/projects">Projects</a>
-				<a href="/resume">Resume</a>
-				<a href="/pong">Pong</a>
-				<a href="/experimental">Experimental</a>
+				<a href={withBase()}>Home</a>
+				<a href={withBase("projects/")}>Projects</a>
+				<a href={withBase("resume/")}>Resume</a>
+				<a href={withBase("pong/")}>Pong</a>
+				<a href={withBase("experimental/")}>Experimental</a>
 			</nav>
 		</header>
 

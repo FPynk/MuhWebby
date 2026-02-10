@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../utils/site";
 ---
 
 <BaseLayout title="Home">
@@ -7,9 +8,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		<h1>Welcome to MuhWebby</h1>
 		<p>This home page is a placeholder while the full site is being built.</p>
 		<ul>
-			<li><a href="/projects">Projects</a> — preview the work that will live here.</li>
-			<li><a href="/resume">Resume</a> — quick link to the resume placeholder.</li>
-			<li><a href="/pong">Pong</a> — a space reserved for a fun project.</li>
+			<li><a href={withBase("projects/")}>Projects</a> — preview the work that will live here.</li>
+			<li><a href={withBase("resume/")}>Resume</a> — quick link to the resume placeholder.</li>
+			<li><a href={withBase("pong/")}>Pong</a> — a space reserved for a fun project.</li>
 		</ul>
 	</section>
 </BaseLayout>

@@ -1,18 +1,19 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../utils/site";
 ---
 
 <BaseLayout title="Resume">
 	<section class="page-block">
 		<h1>Muh Resume</h1>
 		<p class="resume-actions">
-			<a class="resume-download" href="/Andrew_Loh_Resume.pdf" download>
+			<a class="resume-download" href={withBase("Andrew_Loh_Resume.pdf")} download>
 				Download Resume
 			</a>
 		</p>
 		<iframe
 			class="resume-embed"
-			src="/Andrew_Loh_Resume.pdf"
+			src={withBase("Andrew_Loh_Resume.pdf")}
 			title="Muh Resume PDF"
 		></iframe>
 	</section>
