@@ -1,3 +1,5 @@
+type PongControlMode = "keyboard" | "touch";
+
 type PongOptions = {
 	winningScore?: number;
 	serveDelayMs?: number;
@@ -5,6 +7,7 @@ type PongOptions = {
 	startButton?: HTMLButtonElement | null;
 	pauseOverlay?: HTMLElement | null;
 	pauseButton?: HTMLButtonElement | null;
+	controlMode?: PongControlMode | "auto";
 };
 
 type Winner = "left" | "right" | null;
@@ -40,6 +43,14 @@ export function initPong(
 	const startButton = options.startButton ?? null;
 	const pauseOverlay = options.pauseOverlay ?? null;
 	const pauseButton = options.pauseButton ?? null;
+	const coarsePointerQuery = window.matchMedia("(hover: none) and (pointer: coarse)");
+	const detectedTouchPrimary = coarsePointerQuery.matches || navigator.maxTouchPoints > 0;
+	const controlMode: PongControlMode =
+		options.controlMode && options.controlMode !== "auto"
+			? options.controlMode
+			: detectedTouchPrimary
+				? "touch"
+				: "keyboard";
 
 	const paddleWidth = 14;
 	const paddleHeight = 92;
@@ -75,9 +86,29 @@ export function initPong(
 		up: false,
 		down: false,
 	};
+	const touchInput = {
+		activePointerId: null as number | null,
+		targetY: state.leftY,
+		dragging: false,
+	};
 
 	let started = false;
 	let paused = false;
+
+	const clearTouchInput = (): void => {
+		touchInput.activePointerId = null;
+		touchInput.dragging = false;
+	};
+
+	const setTouchTargetFromClientY = (clientY: number): void => {
+		const rect = canvas.getBoundingClientRect();
+		if (rect.height <= 0) {
+			return;
+		}
+		const normalizedY = (clientY - rect.top) / rect.height;
+		const canvasY = normalizedY * height;
+		touchInput.targetY = clamp(canvasY - paddleHeight / 2, 0, height - paddleHeight);
+	};
 
 	const startGame = (): void => {
 		if (started) {
@@ -128,6 +159,7 @@ export function initPong(
 		state.winner = null;
 		state.leftY = height / 2 - paddleHeight / 2;
 		state.rightY = height / 2 - paddleHeight / 2;
+		touchInput.targetY = state.leftY;
 		resetBall(Math.random() > 0.5 ? 1 : -1);
 	};
 
@@ -182,11 +214,23 @@ export function initPong(
 
 	// Update advances movement, AI, collisions, and scoring.
 	const update = (dt: number): void => {
-		if (input.up) {
-			state.leftY -= paddleSpeed * dt;
-		}
-		if (input.down) {
-			state.leftY += paddleSpeed * dt;
+		if (controlMode === "touch") {
+			if (touchInput.dragging) {
+				const maxStep = paddleSpeed * dt;
+				const deltaY = touchInput.targetY - state.leftY;
+				if (Math.abs(deltaY) <= maxStep) {
+					state.leftY = touchInput.targetY;
+				} else {
+					state.leftY += Math.sign(deltaY) * maxStep;
+				}
+			}
+		} else {
+			if (input.up) {
+				state.leftY -= paddleSpeed * dt;
+			}
+			if (input.down) {
+				state.leftY += paddleSpeed * dt;
+			}
 		}
 		state.leftY = clamp(state.leftY, 0, height - paddleHeight);
 
@@ -282,7 +326,11 @@ export function initPong(
 		ctx.font = '500 18px "Geist Mono Local", "Geist Mono", ui-monospace';
 		ctx.textBaseline = "bottom";
 		if (!started) {
-			ctx.fillText("Press W/S or \u2191/\u2193 to start", width / 2, height - 18);
+			const startHint =
+				controlMode === "touch"
+					? "Tap Start, then drag to move"
+					: "Press W/S or \u2191/\u2193 to start";
+			ctx.fillText(startHint, width / 2, height - 18);
 		} else if (state.winner) {
 			const winnerLabel = state.winner === "left" ? "You win!" : "CPU wins!";
 			ctx.fillText(`${winnerLabel} Press R to restart`, width / 2, height - 18);
@@ -339,11 +387,76 @@ export function initPong(
 	const clearInput = (): void => {
 		input.up = false;
 		input.down = false;
+		clearTouchInput();
+	};
+
+	const handlePointerDown = (event: PointerEvent): void => {
+		if (controlMode !== "touch" || paused) {
+			return;
+		}
+		if (touchInput.activePointerId !== null && touchInput.activePointerId !== event.pointerId) {
+			return;
+		}
+
+		touchInput.activePointerId = event.pointerId;
+		touchInput.dragging = true;
+		setTouchTargetFromClientY(event.clientY);
+
+		if (!started) {
+			startGame();
+		}
+
+		event.preventDefault();
+		try {
+			canvas.setPointerCapture(event.pointerId);
+		} catch {
+			// Ignore capture failures on browsers that don't support this pointer.
+		}
+	};
+
+	const handlePointerMove = (event: PointerEvent): void => {
+		if (controlMode !== "touch" || paused) {
+			return;
+		}
+		if (touchInput.activePointerId !== event.pointerId) {
+			return;
+		}
+
+		setTouchTargetFromClientY(event.clientY);
+		event.preventDefault();
+	};
+
+	const handlePointerEnd = (event: PointerEvent): void => {
+		if (controlMode !== "touch") {
+			return;
+		}
+		if (touchInput.activePointerId !== event.pointerId) {
+			return;
+		}
+
+		clearTouchInput();
+		event.preventDefault();
+		try {
+			canvas.releasePointerCapture(event.pointerId);
+		} catch {
+			// Ignore release failures when pointer capture isn't active.
+		}
+	};
+
+	const handleVisibilityChange = (): void => {
+		if (document.visibilityState === "hidden") {
+			clearInput();
+		}
 	};
 
 	window.addEventListener("keydown", handleKeyDown);
 	window.addEventListener("keyup", handleKeyUp);
 	window.addEventListener("blur", clearInput);
+	document.addEventListener("visibilitychange", handleVisibilityChange);
+	canvas.addEventListener("pointerdown", handlePointerDown, { passive: false });
+	canvas.addEventListener("pointermove", handlePointerMove, { passive: false });
+	canvas.addEventListener("pointerup", handlePointerEnd, { passive: false });
+	canvas.addEventListener("pointercancel", handlePointerEnd, { passive: false });
 	startButton?.addEventListener("click", startGame);
 	pauseButton?.addEventListener("click", togglePause);
 
@@ -380,6 +493,11 @@ export function initPong(
 		window.removeEventListener("keydown", handleKeyDown);
 		window.removeEventListener("keyup", handleKeyUp);
 		window.removeEventListener("blur", clearInput);
+		document.removeEventListener("visibilitychange", handleVisibilityChange);
+		canvas.removeEventListener("pointerdown", handlePointerDown);
+		canvas.removeEventListener("pointermove", handlePointerMove);
+		canvas.removeEventListener("pointerup", handlePointerEnd);
+		canvas.removeEventListener("pointercancel", handlePointerEnd);
 		startButton?.removeEventListener("click", startGame);
 		pauseButton?.removeEventListener("click", togglePause);
 	};

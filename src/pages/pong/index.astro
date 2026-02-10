@@ -6,8 +6,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 	<section class="page-block pong-page">
 		<h1>Pong</h1>
 		<p class="pong-copy">
-			Controls: <kbd>W</kbd>/<kbd>S</kbd> or <kbd>↑</kbd>/<kbd>↓</kbd> move your paddle. Press <kbd>P</kbd> to
-			pause. First to 7 wins.
+			<span class="pong-only-desktop">
+				Controls: <kbd>W</kbd>/<kbd>S</kbd> or <kbd>↑</kbd>/<kbd>↓</kbd> move your paddle. Press <kbd>P</kbd> to
+				pause. First to 7 wins.
+			</span>
+			<span class="pong-only-touch">
+				Controls: drag to move your paddle. Use the Pause button to pause. First to 7 wins.
+			</span>
 		</p>
 		<div class="pong-stage">
 			<button id="pong-pause-button" class="pong-pause-button" type="button" aria-pressed="false">Pause</button>
@@ -20,12 +25,18 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 			></canvas>
 			<div id="pong-pause-overlay" class="pong-pause-overlay is-hidden">
 				<p class="pong-pause-title">Paused</p>
-				<p class="pong-pause-copy">Press <kbd>P</kbd> or use the top-right button to resume</p>
+				<p class="pong-pause-copy">
+					<span class="pong-only-desktop">Press <kbd>P</kbd> or use the top-right button to resume</span>
+					<span class="pong-only-touch">Use the top-right button to resume</span>
+				</p>
 			</div>
 			<div id="pong-start-overlay" class="pong-start-overlay">
 				<p class="pong-start-title">Ready for a round?</p>
 				<button id="pong-start-button" type="button">Start Game</button>
-				<p class="pong-start-copy">or press <kbd>W</kbd>/<kbd>S</kbd> or <kbd>↑</kbd>/<kbd>↓</kbd></p>
+				<p class="pong-start-copy">
+					<span class="pong-only-desktop">Press <kbd>W</kbd>/<kbd>S</kbd> or <kbd>↑</kbd>/<kbd>↓</kbd> to move.</span>
+					<span class="pong-only-touch">Drag in the game area to move.</span>
+				</p>
 			</div>
 		</div>
 	</section>
@@ -38,7 +49,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 		const startButton = document.getElementById("pong-start-button");
 		const pauseOverlay = document.getElementById("pong-pause-overlay");
 		const pauseButton = document.getElementById("pong-pause-button");
+		const isTouchPrimary =
+			window.matchMedia("(hover: none) and (pointer: coarse)").matches || navigator.maxTouchPoints > 0;
 		if (canvas instanceof HTMLCanvasElement) {
+			canvas.closest(".pong-page")?.classList.toggle("is-touch", isTouchPrimary);
 			const cleanup = initPong(canvas, {
 				winningScore: 7,
 				serveDelayMs: 900,
@@ -46,6 +60,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 				startButton: startButton instanceof HTMLButtonElement ? startButton : null,
 				pauseOverlay: pauseOverlay instanceof HTMLElement ? pauseOverlay : null,
 				pauseButton: pauseButton instanceof HTMLButtonElement ? pauseButton : null,
+				controlMode: isTouchPrimary ? "touch" : "keyboard",
 			});
 			window.addEventListener("pagehide", cleanup, { once: true });
 		}
