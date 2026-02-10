@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=VT323&display=swap");
 
+/* NOTE: This /MuhWebby/... URL must match astro.config.mjs `base` for GitHub Pages builds. */
 @font-face {
 	font-family: "VT323";
 	src: url("/MuhWebby/fonts/VT323-Regular.ttf") format("truetype");
