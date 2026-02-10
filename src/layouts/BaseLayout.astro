@@ -33,5 +33,17 @@ const { title = "MuhWebby" } = Astro.props;
 		<footer class="site-footer">
 			Placeholder footer text for now.
 		</footer>
+
+		<script is:inline>
+			if (new URLSearchParams(window.location.search).has("debugLinks")) {
+				document.querySelectorAll("a[href]").forEach((link) => {
+					console.debug("[link-debug]", {
+						text: link.textContent?.trim(),
+						attrHref: link.getAttribute("href"),
+						resolvedHref: link.href,
+					});
+				});
+			}
+		</script>
 	</body>
 </html>
