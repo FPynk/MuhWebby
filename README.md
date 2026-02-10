@@ -2,10 +2,10 @@
 Its a website that i put things on. Finally getting around to doing this :3
 
 ## TODO
-1) Setup
-   - Folder structure
-   - Basic navigation to placeholder / Routing
-   - Structure of Landing page
+1) Pong
+ - 2 player
+ - Highscore? ranking list, will need a DB for this or maybe just use a plaintext file for now
+ - 
 2) 
 
 # Astro Starter Kit: Basics
