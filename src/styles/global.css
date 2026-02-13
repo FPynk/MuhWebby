@@ -39,8 +39,8 @@
 	--header-bg: oklch(0.21 0.034 264.665);
 	--header-fg: #ffffff;
 	--header-border: oklch(0.373 0.034 259.733);
-	--nav-link: #d7deea;
-	--nav-link-hover: #ffffff;
+	--nav-link: oklch(0.707 0.022 261.325);
+	--nav-link-hover: oklch(0.707 0.022 261.325);
 	--footer-bg: #0f172a;
 	--footer-fg: #cbd5e1;
 	color: var(--foreground);
@@ -58,8 +58,8 @@
 		--header-bg: oklch(0.21 0.034 264.665);
 		--header-fg: #ededed;
 		--header-border: oklch(0.373 0.034 259.733);
-		--nav-link: #b7c5df;
-		--nav-link-hover: #ffffff;
+		--nav-link: oklch(0.707 0.022 261.325);
+		--nav-link-hover: oklch(0.707 0.022 261.325);
 		--footer-bg: #090d16;
 		--footer-fg: #b7c5df;
 	}

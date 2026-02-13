@@ -1,16 +1,270 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { withBase } from "../utils/site";
+
+const experience = [
+	{
+		title: "Experience Placeholder A",
+		imgSrc: withBase("placeholder.jpg"),
+		caption: "Role / Team placeholder",
+	},
+	{
+		title: "Experience Placeholder B",
+		imgSrc: withBase("placeholder.jpg"),
+		caption: "Role / Team placeholder",
+	},
+	{
+		title: "Experience Placeholder C",
+		imgSrc: withBase("placeholder.jpg"),
+		caption: "Role / Team placeholder",
+	},
+];
+
+const projects = [
+	{
+		title: "Project Placeholder One",
+		subtitle: "Hackathon / timeframe placeholder",
+		href: "#",
+	},
+	{
+		title: "Project Placeholder Two",
+		subtitle: "Hackathon / timeframe placeholder",
+		href: "#",
+	},
+	{
+		title: "Project Placeholder Three",
+		subtitle: "Hackathon / timeframe placeholder",
+		href: "#",
+	},
+];
+
+const ama = [
+	{ emoji: "💬", title: "Topic placeholder one" },
+	{ emoji: "🧠", title: "Topic placeholder two" },
+	{ emoji: "⚡", title: "Topic placeholder three" },
+	{ emoji: "🛠️", title: "Topic placeholder four" },
+    { emoji: "🛠️", title: "Topic placeholder five" },
+];
 ---
 
 <BaseLayout title="Home">
-	<section class="page-block">
-		<h1>Welcome to MuhWebby</h1>
-		<p>Under construction! Still figuring out how to do this landing page thing</p>
-		<ul>
-			<li><a href={withBase("projects/")}>Projects</a> — WIP list of all the stuff I've worked on</li>
-			<li><a href={withBase("resume/")}>Resume</a> — Muh resume</li>
-			<li><a href={withBase("pong/")}>Pong</a> — bored? Play some pong!</li>
+	<section id="about" class="section hero">
+		<div class="hero-main">
+			<h1>Hello, this is a placeholder greeting.</h1>
+			<p>Placeholder subtitle about who I am and what I build.</p>
+			<p class="social">
+				<a href="https://github.com/placeholder" target="_blank" rel="noopener">GitHub</a>
+				<span aria-hidden="true">•</span>
+				<a href="https://linkedin.com/in/placeholder" target="_blank" rel="noopener">LinkedIn</a>
+			</p>
+		</div>
+		<div class="avatar">
+			<img src={withBase("me.jpg")} alt="Profile photo" loading="lazy" />
+		</div>
+		<p class="tagline">Short placeholder tagline goes here.</p>
+	</section>
+
+	<section id="experience" class="section">
+		<h2>Experience</h2>
+		<ul class="experience-list">
+			{
+				experience.map((item) => (
+					<li>
+						<figure>
+							<div class="experience-logo">
+								<img src={item.imgSrc} alt={item.title} loading="lazy" />
+							</div>
+							<figcaption>{item.caption}</figcaption>
+						</figure>
+					</li>
+				))
+			}
 		</ul>
 	</section>
+
+	<section id="projects" class="section">
+		<h2>Projects</h2>
+		<div class="project-grid">
+			{
+				projects.map((project) => (
+					<a href={project.href}>
+						<article>
+							<header>
+								<h3>{project.title}</h3>
+								<span aria-hidden="true">↗</span>
+							</header>
+							<p>{project.subtitle}</p>
+						</article>
+					</a>
+				))
+			}
+		</div>
+	</section>
+
+	<section id="ama" class="section">
+		<h2>And I&apos;ve been asked about</h2>
+		<div class="ama-stage">
+			<div class="ama-background" aria-hidden="true">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div class="ama-cards">
+				{
+					ama.map((item) => (
+						<article class="ama-card">
+							<span aria-hidden="true">{item.emoji}</span>
+							<h3>{item.title}</h3>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<footer class="section">
+		<p>
+			Contact: <a href="mailto:hello@example.com">hello@example.com</a>
+		</p>
+	</footer>
 </BaseLayout>
+
+<style>
+	.section {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.hero-main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.social {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.avatar img {
+		display: block;
+		margin: 0 auto;
+		max-width: 220px;
+		width: 100%;
+		height: auto;
+	}
+
+	.experience-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		gap: 1rem;
+		width: 100%;
+		justify-content: center;
+	}
+
+	.experience-list li,
+	.experience-list figure {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 0;
+	}
+
+	.experience-list li {
+		flex: 0 0 auto;
+	}
+
+	.experience-logo img {
+		display: block;
+		width: 96px;
+		height: 96px;
+		object-fit: cover;
+	}
+
+	.project-grid {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: stretch;
+		gap: 1rem;
+		width: 100%;
+	}
+
+	.project-grid a {
+		display: block;
+		text-align: center;
+		flex: 0 0 auto;
+		width: 260px;
+	}
+
+	.project-grid article header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+
+	.project-grid article p {
+		margin-bottom: 0;
+	}
+
+	.ama-stage {
+		width: 100%;
+		max-width: 800px;
+		display: grid;
+		gap: 1rem;
+		justify-items: center;
+	}
+
+	.ama-background {
+		display: flex;
+		gap: 0.5rem;
+		justify-content: center;
+	}
+
+	.ama-cards {
+		--ama-gap: 0.75rem;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(160px, 220px));
+		gap: var(--ama-gap);
+		width: 100%;
+		justify-content: center;
+	}
+
+	/* 1 card on last row -> center column */
+	.ama-cards > :last-child:nth-child(3n + 1) {
+		grid-column: 2;
+	}
+
+	/* 2 cards on last row -> columns 1 and 3 to center the pair */
+	.ama-cards > :nth-last-child(2):nth-child(3n + 1) {
+		grid-column: 1;
+	}
+
+	.ama-cards > :last-child:nth-child(3n + 2) {
+		grid-column: 2;
+	}
+
+	/* Shift a 2-card last row right by half a column to sit at 1.5 and 2.5 positions. */
+	.ama-cards > :nth-last-child(2):nth-child(3n + 1),
+	.ama-cards > :last-child:nth-child(3n + 2) {
+		transform: translateX(calc(50% + var(--ama-gap) / 2));
+	}
+
+	.ama-card {
+		text-align: center;
+	}
+</style>

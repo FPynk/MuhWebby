@@ -5,8 +5,7 @@ Its a website that i put things on. Finally getting around to doing this :3
 1) Pong
  - 2 player
  - Highscore? ranking list, will need a DB for this or maybe just use a plaintext file for now
- - 
-2) 
+2) Landing page
 
 # Astro Starter Kit: Basics
 
