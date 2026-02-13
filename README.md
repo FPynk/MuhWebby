@@ -6,6 +6,7 @@ Its a website that i put things on. Finally getting around to doing this :3
  - 2 player
  - Highscore? ranking list, will need a DB for this or maybe just use a plaintext file for now
 2) Landing page
+ - Move the CSS to the css file
 
 # Astro Starter Kit: Basics
 
