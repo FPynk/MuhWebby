@@ -5,37 +5,32 @@ import "../styles/pages/landing.css";
 
 const experience = [
 	{
-		title: "Experience Placeholder A",
-		imgSrc: withBase("placeholder.jpg"),
-		caption: "Role / Team placeholder",
+		title: "Relativity ODA",
+		imgSrc: withBase("Squares Relativity Logo Vector.svg .png"),
+		caption: "devops, deployment pipelines",
 	},
 	{
-		title: "Experience Placeholder B",
+		title: "- Insert Your Company Here -",
 		imgSrc: withBase("placeholder.jpg"),
-		caption: "Role / Team placeholder",
-	},
-	{
-		title: "Experience Placeholder C",
-		imgSrc: withBase("placeholder.jpg"),
-		caption: "Role / Team placeholder",
+		caption: "Software Engineer",
 	},
 ];
 
 const projects = [
 	{
-		title: "Project Placeholder One",
-		subtitle: "Hackathon / timeframe placeholder",
-		href: "#",
+		title: "Leetcode Competition Telegram Bot",
+		subtitle: "leetcode grind -> fun game",
+		href: "https://github.com/FPynk/TeLeetBot",
 	},
 	{
-		title: "Project Placeholder Two",
-		subtitle: "Hackathon / timeframe placeholder",
-		href: "#",
+		title: "HyDFS & RainStorm Distributed System",
+		subtitle: "10 komputah better than 1",
+		href: "https://github.com/FPynk/HyDFS-RainStorm-Distributed-System",
 	},
 	{
-		title: "Project Placeholder Three",
-		subtitle: "Hackathon / timeframe placeholder",
-		href: "#",
+		title: "Facial Recognition for Image Indexing",
+		subtitle: "Privacy? What's that!",
+		href: "https://github.com/FPynk/CS445_FinalProject",
 	},
 ];
 
@@ -75,7 +70,8 @@ const ama = [
 							<div class="experience-logo">
 								<img src={item.imgSrc} alt={item.title} loading="lazy" />
 							</div>
-							<figcaption>{item.caption}</figcaption>
+							<h3 class="experience-company">{item.title}</h3>
+							<figcaption class="experience-caption">{item.caption}</figcaption>
 						</figure>
 					</li>
 				))

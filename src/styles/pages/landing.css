@@ -104,11 +104,21 @@
 	flex: 0 0 auto;
 }
 
+.experience-list figure {
+	/* 2x vertical separation between logo, company title, and caption. */
+	gap: 1rem;
+}
+
 .experience-logo img {
 	display: block;
 	width: 96px;
 	height: 96px;
 	object-fit: cover;
+}
+
+.experience-company,
+.experience-caption {
+	margin: 0;
 }
 
 .project-grid {
@@ -126,6 +136,11 @@
 	text-align: center;
 	flex: 0 0 auto;
 	width: 260px;
+	color: #ffffff;
+}
+
+.project-grid a:hover {
+	color: #ffffff;
 }
 
 .project-grid article header {
