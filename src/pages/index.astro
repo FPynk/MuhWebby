@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { withBase } from "../utils/site";
+import "../styles/pages/landing.css";
 
 const experience = [
 	{
@@ -49,19 +50,19 @@ const ama = [
 
 <BaseLayout title="Home">
 	<section id="about" class="section hero">
-		<div class="hero-main">
-			<h1>Hello! This is still WIP but come play Pong while you're here!</h1>
-			<p>Placeholder subtitle about all the stoof i do</p>
+		<div class="hero-main scanlines">
+			<h1>Hello! I'm Andrew!</h1>
+			<p>Computer Science @ University Of Illinois Urbana-Champaign</p>
 			<p class="social">
-				<a href="https://github.com/placeholder" target="_blank" rel="noopener">GitHub</a>
+				<a href="https://github.com/FPynk" target="_blank" rel="noopener">GitHub</a>
 				<span aria-hidden="true">•</span>
-				<a href="https://linkedin.com/in/placeholder" target="_blank" rel="noopener">LinkedIn</a>
+				<a href="https://www.linkedin.com/in/andrew-c-loh/" target="_blank" rel="noopener">LinkedIn</a>
 			</p>
 		</div>
 		<div class="avatar">
 			<img src={withBase("me.jpg")} alt="Profile photo" loading="lazy" />
 		</div>
-		<p class="tagline">yeye yaya</p>
+		<p class="tagline">I like to do beep boop 🖥️🤖 and go on long walks up big rocks 🪨</p>
 	</section>
 
 	<section id="experience" class="section">
@@ -124,147 +125,7 @@ const ama = [
 
 	<footer class="section">
 		<p>
-			Contact: <a href="mailto:hello@example.com">hello@example.com</a>
+			Contact: <a href="mailto:hello@example.com">acloh2@illinois.edu</a>
 		</p>
 	</footer>
 </BaseLayout>
-
-<style>
-	.section {
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.75rem;
-	}
-
-	.hero-main {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.social {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-	}
-
-	.avatar img {
-		display: block;
-		margin: 0 auto;
-		max-width: 440px;
-		width: 100%;
-		height: auto;
-	}
-
-	.experience-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		gap: 1rem;
-		width: 100%;
-		justify-content: center;
-	}
-
-	.experience-list li,
-	.experience-list figure {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		margin: 0;
-	}
-
-	.experience-list li {
-		flex: 0 0 auto;
-	}
-
-	.experience-logo img {
-		display: block;
-		width: 96px;
-		height: 96px;
-		object-fit: cover;
-	}
-
-	.project-grid {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: stretch;
-		gap: 1rem;
-		width: 100%;
-	}
-
-	.project-grid a {
-		display: block;
-		text-align: center;
-		flex: 0 0 auto;
-		width: 260px;
-	}
-
-	.project-grid article header {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-	}
-
-	.project-grid article p {
-		margin-bottom: 0;
-	}
-
-	.ama-stage {
-		width: 100%;
-		max-width: 800px;
-		display: grid;
-		gap: 1rem;
-		justify-items: center;
-	}
-
-	.ama-background {
-		display: flex;
-		gap: 0.5rem;
-		justify-content: center;
-	}
-
-	.ama-cards {
-		--ama-gap: 0.75rem;
-		display: grid;
-		grid-template-columns: repeat(3, minmax(160px, 220px));
-		gap: var(--ama-gap);
-		width: 100%;
-		justify-content: center;
-	}
-
-	/* 1 card on last row -> center column */
-	.ama-cards > :last-child:nth-child(3n + 1) {
-		grid-column: 2;
-	}
-
-	/* 2 cards on last row -> columns 1 and 3 to center the pair */
-	.ama-cards > :nth-last-child(2):nth-child(3n + 1) {
-		grid-column: 1;
-	}
-
-	.ama-cards > :last-child:nth-child(3n + 2) {
-		grid-column: 2;
-	}
-
-	/* Shift a 2-card last row right by half a column to sit at 1.5 and 2.5 positions. */
-	.ama-cards > :nth-last-child(2):nth-child(3n + 1),
-	.ama-cards > :last-child:nth-child(3n + 2) {
-		transform: translateX(calc(50% + var(--ama-gap) / 2));
-	}
-
-	.ama-card {
-		text-align: center;
-	}
-</style>
