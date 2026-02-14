@@ -9,39 +9,56 @@
 #about + #experience,
 #experience + #projects,
 #projects + #ama {
-	margin-top: 4rem;
+	margin-top: 6rem;
 }
 
-.section-title {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0.6rem 1rem;
-	border-radius: 12px;
+#ama + footer {
+	margin-top: 3rem;
+}
+
+.scanline-panel {
+	box-sizing: border-box;
+	padding: 1.25rem 1.5rem;
+	border-radius: 14px;
 	border: 2px solid transparent;
-	margin: 0 0 0.5rem;
 }
 
-.section-title > span {
+.scanline-panel > * {
 	position: relative;
 	z-index: 3;
 }
 
-.experience-title {
+.site-main h2.section-title {
+	margin: 0 0 0.5rem;
+	font-family: "VT323", "Geist Mono", "Geist Mono Local";
+	font-size: clamp(2rem, 5vw, 3.25rem);
+	font-weight: 400;
+	line-height: 1;
+}
+
+.experience-panel {
 	background: rgba(14, 82, 104, 0.9);
 	border-color: #2ec4d6;
 	color: oklch(0.82 0.09 215);
 	box-shadow: 0 14px 36px rgba(14, 82, 104, 0.25);
 }
 
-.projects-title {
+#experience .scanline-panel {
+	padding: 1rem 1.2rem;
+}
+
+.projects-panel {
 	background: rgba(66, 41, 122, 0.9);
 	border-color: #8b5cf6;
 	color: oklch(0.78 0.12 300);
 	box-shadow: 0 14px 36px rgba(66, 41, 122, 0.25);
 }
 
-.ama-title {
+#projects .scanline-panel {
+	padding: 1rem 1.2rem;
+}
+
+.ama-panel {
 	background: rgba(110, 66, 24, 0.9);
 	border-color: #f59e0b;
 	color: oklch(0.84 0.11 82);
@@ -138,11 +155,15 @@
 
 .experience-list li {
 	flex: 0 0 auto;
+	width: 290px;
+	height: 240px;
 }
 
 .experience-list figure {
 	/* 2x vertical separation between logo, company title, and caption. */
 	gap: 1rem;
+	height: 100%;
+	justify-content: center;
 }
 
 .experience-logo img {
@@ -171,8 +192,16 @@
 	display: block;
 	text-align: center;
 	flex: 0 0 auto;
-	width: 260px;
+	width: 286px;
 	color: inherit;
+}
+
+.project-grid article {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: center;
+	height: 100%;
 }
 
 .project-grid a:hover {
