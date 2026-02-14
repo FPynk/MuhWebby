@@ -36,6 +36,13 @@
 	--surface: #ffffff;
 	--surface-border: #e2e8f0;
 	--surface-shadow: rgba(15, 23, 42, 0.05);
+	--panel-bg: rgba(255, 255, 255, 0.62);
+	--panel-border: rgba(15, 23, 42, 0.2);
+	--panel-radius: 12px;
+	--panel-padding-mobile: 12px;
+	--panel-padding-desktop: 16px;
+	--panel-blur: 12px;
+	--panel-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
 	--header-bg: oklch(0.21 0.034 264.665);
 	--header-fg: #ffffff;
 	--header-border: oklch(0.373 0.034 259.733);
@@ -55,6 +62,9 @@
 		--surface: #12161f;
 		--surface-border: #2a3444;
 		--surface-shadow: rgba(0, 0, 0, 0.45);
+		--panel-bg: rgba(18, 22, 31, 0.62);
+		--panel-border: rgba(183, 197, 223, 0.24);
+		--panel-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
 		--header-bg: oklch(0.21 0.034 264.665);
 		--header-fg: #ededed;
 		--header-border: oklch(0.373 0.034 259.733);
@@ -170,6 +180,27 @@ input[type="reset"]:hover {
 	letter-spacing: 0.02em;
 }
 
+.panel {
+	background: var(--panel-bg);
+	border: 1px solid var(--panel-border);
+	border-radius: var(--panel-radius);
+	padding: var(--panel-padding-mobile);
+	box-shadow: var(--panel-shadow);
+}
+
+@media (min-width: 640px) {
+	.panel {
+		padding: var(--panel-padding-desktop);
+	}
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+	.panel {
+		-webkit-backdrop-filter: blur(var(--panel-blur));
+		backdrop-filter: blur(var(--panel-blur));
+	}
+}
+
 .page-block {
 	background: var(--surface);
 	border: 1px solid var(--surface-border);
@@ -179,6 +210,12 @@ input[type="reset"]:hover {
 }
 
 .page-block + .page-block {
+	margin-top: 1rem;
+}
+
+.page-block + .panel,
+.panel + .page-block,
+.panel + .panel {
 	margin-top: 1rem;
 }
 
