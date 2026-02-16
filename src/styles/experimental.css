@@ -22,7 +22,7 @@
 .exp-icon {
 	width: 64px;
 	height: 64px;
-	color: #facc15;
+	color: var(--experimental-icon);
 	flex-shrink: 0;
 }
 
@@ -60,19 +60,19 @@
 }
 
 .exp-key {
-	color: #475569;
+	color: var(--experimental-link);
 	font-size: 0.8rem;
 	font-family: "VT323", "Geist Mono", "Geist Mono Local";
 	font-weight: 400;
 }
 
 .exp-link {
-	color: #475569;
+	color: var(--experimental-link);
 	text-decoration: none;
 }
 
 .exp-link:hover {
-	color: #0f172a;
+	color: var(--experimental-link-hover);
 	text-decoration: underline;
 }
 
@@ -81,10 +81,10 @@
 	padding: 1.25rem 1.5rem;
 	font-family: "Geist", "Geist Local", "Inter";
 	border-radius: 14px;
-	border: 2px solid #3b82f6;
-	background: rgba(30, 64, 175, 0.9);
+	border: 2px solid var(--experimental-card-border);
+	background: var(--experimental-card-bg);
 	color: oklch(0.707 0.165 254.624);
-	box-shadow: 0 14px 36px rgba(30, 64, 175, 0.25);
+	box-shadow: 0 14px 36px var(--experimental-card-shadow);
 	overflow: hidden;
 }
 
@@ -97,7 +97,7 @@
 }
 
 .exp-card-icon {
-	color: #60a5fa;
+	color: var(--experimental-card-icon);
 	width: 36px;
 	height: 36px;
 	flex-shrink: 0;
