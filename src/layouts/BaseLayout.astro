@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import SiteFooter from "../components/layout/SiteFooter.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
 import { withBase } from "../utils/site";
 
 const { title = "MuhWebby" } = Astro.props;
@@ -16,23 +18,12 @@ const faviconHref = withBase("diverwhat.webp?v=3");
 		<title>{title}</title>
 	</head>
 	<body>
-		<header class="site-header">
-			<a class="brand font-special" href={withBase()}>Andrew Loh</a>
-			<nav class="site-nav">
-				<a href={withBase()}>Home</a>
-				<a href={withBase("projects/")}>Projects</a>
-				<a href={withBase("resume/")}>Resume</a>
-				<a href={withBase("pong/")}>Pong</a>
-				<a href={withBase("experimental/")}>Experimental</a>
-			</nav>
-		</header>
+		<SiteHeader />
 
 		<main class="site-main">
 			<slot />
 		</main>
 
-		<footer class="site-footer">
-			Watchu lookin at ʕ·͡ᴥ·ʔ
-		</footer>
+		<SiteFooter />
 	</body>
 </html>

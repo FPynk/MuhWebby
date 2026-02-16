@@ -1,9 +1,25 @@
 ---
+import AmaSection from "../components/home/AmaSection.astro";
+import ContactSection from "../components/home/ContactSection.astro";
+import ExperienceSection from "../components/home/ExperienceSection.astro";
+import HeroIntro from "../components/home/HeroIntro.astro";
+import ProjectsSection from "../components/home/ProjectsSection.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { withBase } from "../utils/site";
 import "../styles/pages/landing.css";
+import type {
+	AmaItem,
+	ExperienceItem,
+	ProjectItem,
+	SocialLink,
+} from "../types/home";
 
-const experience = [
+const socialLinks: SocialLink[] = [
+	{ label: "GitHub", href: "https://github.com/FPynk" },
+	{ label: "LinkedIn", href: "https://www.linkedin.com/in/andrew-c-loh/" },
+];
+
+const experience: ExperienceItem[] = [
 	{
 		title: "Relativity ODA",
 		imgSrc: withBase("Squares Relativity Logo Vector.svg .png"),
@@ -16,7 +32,7 @@ const experience = [
 	},
 ];
 
-const projects = [
+const projects: ProjectItem[] = [
 	{
 		title: "Leetcode Competition Telegram Bot",
 		subtitle: "leetcode grind -> fun game",
@@ -34,94 +50,26 @@ const projects = [
 	},
 ];
 
-const ama = [
+const ama: AmaItem[] = [
 	{ emoji: "💬", title: "Topic placeholder one" },
 	{ emoji: "🧠", title: "Topic placeholder two" },
 	{ emoji: "⚡", title: "Topic placeholder three" },
 	{ emoji: "🛠️", title: "Topic placeholder four" },
-    { emoji: "🛠️", title: "Topic placeholder five" },
+	{ emoji: "🛠️", title: "Topic placeholder five" },
 ];
 ---
 
 <BaseLayout title="Home">
-	<section id="about" class="section hero">
-		<div class="hero-main scanlines">
-			<h1>Hello! I'm Andrew!</h1>
-			<p>Computer Science @ University Of Illinois Urbana-Champaign</p>
-			<p class="social">
-				<a href="https://github.com/FPynk" target="_blank" rel="noopener">GitHub</a>
-				<span aria-hidden="true">•</span>
-				<a href="https://www.linkedin.com/in/andrew-c-loh/" target="_blank" rel="noopener">LinkedIn</a>
-			</p>
-		</div>
-		<div class="avatar">
-			<img src={withBase("me.jpg")} alt="Profile photo" loading="lazy" />
-		</div>
-		<p class="tagline">I like to do beep boop 🖥️🤖 and go on long walks up big rocks 🪨</p>
-	</section>
-
-	<section id="experience" class="section">
-		<h2 class="section-title">Experience</h2>
-		<ul class="experience-list">
-			{
-				experience.map((item) => (
-					<li class="scanline-panel experience-panel scanlines">
-						<figure>
-							<div class="experience-logo">
-								<img src={item.imgSrc} alt={item.title} loading="lazy" />
-							</div>
-							<h3 class="experience-company">{item.title}</h3>
-							<figcaption class="experience-caption">{item.caption}</figcaption>
-						</figure>
-					</li>
-				))
-			}
-		</ul>
-	</section>
-
-	<section id="projects" class="section">
-		<h2 class="section-title">Projects</h2>
-		<div class="project-grid">
-			{
-				projects.map((project) => (
-					<a href={project.href}>
-						<article class="scanline-panel projects-panel scanlines">
-							<header>
-								<h3>{project.title}</h3>
-								<span aria-hidden="true">↗</span>
-							</header>
-							<p>{project.subtitle}</p>
-						</article>
-					</a>
-				))
-			}
-		</div>
-	</section>
-
-	<section id="ama" class="section">
-		<h2 class="section-title">And I&apos;ve been asked about</h2>
-		<div class="ama-stage">
-			<div class="ama-background" aria-hidden="true">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-			<div class="ama-cards">
-				{
-					ama.map((item) => (
-						<article class="ama-card scanline-panel ama-panel scanlines">
-							<span aria-hidden="true">{item.emoji}</span>
-							<h3>{item.title}</h3>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</section>
-
-	<footer class="section">
-		<p>
-			Contact: <a href="mailto:acloh2@illinois.edu">acloh2@illinois.edu</a>
-		</p>
-	</footer>
+	<HeroIntro
+		heading="Hello! I'm Andrew!"
+		subheading="Computer Science @ University Of Illinois Urbana-Champaign"
+		socialLinks={socialLinks}
+		avatarSrc={withBase("me.jpg")}
+		avatarAlt="Profile photo"
+		tagline="I like to do beep boop 🖥️🤖 and go on long walks up big rocks 🪨"
+	/>
+	<ExperienceSection title="Experience" items={experience} />
+	<ProjectsSection title="Projects" items={projects} />
+	<AmaSection title="And I've been asked about" items={ama} />
+	<ContactSection email="acloh2@illinois.edu" />
 </BaseLayout>
