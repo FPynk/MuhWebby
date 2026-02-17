@@ -159,9 +159,3 @@
 	color: var(--foreground);
 	background: var(--surface);
 }
-
-@media (prefers-color-scheme: light) {
-	.pong-start-overlay {
-		background: var(--overlay-bg-light);
-	}
-}
