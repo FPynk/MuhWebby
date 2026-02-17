@@ -79,7 +79,10 @@ const {
 										) : item.media?.kind === "video" && hasMediaSrc ? (
 											<video
 												class="ama-dialog-media-video"
-												controls
+												autoplay
+												muted
+												loop
+												playsinline
 												preload="metadata"
 												aria-label={item.media.alt ?? `${dialogTitle} video`}
 											>

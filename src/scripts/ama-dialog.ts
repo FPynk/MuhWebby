@@ -4,6 +4,26 @@ export function initAmaDialogs(): void {
 		return;
 	}
 
+	const setDialogVideosPlayback = (
+		dialog: HTMLDialogElement,
+		shouldPlay: boolean,
+	): void => {
+		const videos = dialog.querySelectorAll<HTMLVideoElement>("video.ama-dialog-media-video");
+		videos.forEach((video) => {
+			video.muted = true;
+			if (shouldPlay) {
+				video.currentTime = 0;
+				const playPromise = video.play();
+				playPromise?.catch(() => {
+					/* Ignore autoplay rejections from browser policy edge cases. */
+				});
+				return;
+			}
+			video.pause();
+			video.currentTime = 0;
+		});
+	};
+
 	sections.forEach((section) => {
 		if (section.dataset.amaDialogsBound === "true") {
 			return;
@@ -25,6 +45,7 @@ export function initAmaDialogs(): void {
 			trigger.addEventListener("click", () => {
 				if (!dialog.open) {
 					dialog.showModal();
+					setDialogVideosPlayback(dialog, true);
 				}
 			});
 
@@ -44,6 +65,10 @@ export function initAmaDialogs(): void {
 				if (!clickedInside) {
 					dialog.close();
 				}
+			});
+
+			dialog.addEventListener("close", () => {
+				setDialogVideosPlayback(dialog, false);
 			});
 		});
 	});
