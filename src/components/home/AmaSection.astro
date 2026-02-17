@@ -67,48 +67,52 @@ const {
 							</header>
 
 							<div class="ama-dialog-body">
-								<div class="ama-dialog-media">
-									{
-										item.media?.kind === "image" && hasMediaSrc ? (
-											<img
-												class="ama-dialog-media-image"
-												src={item.media.src}
-												alt={item.media.alt ?? `${dialogTitle} media`}
-												loading="lazy"
-											/>
-										) : item.media?.kind === "video" && hasMediaSrc ? (
-											<video
-												class="ama-dialog-media-video"
-												autoplay
-												muted
-												loop
-												playsinline
-												preload="metadata"
-												aria-label={item.media.alt ?? `${dialogTitle} video`}
-											>
-												<source src={item.media.src} />
-											</video>
-										) : item.media?.kind === "iframe" && hasMediaSrc ? (
-											<iframe
-												class="ama-dialog-media-frame"
-												src={item.media.src}
-												title={`${dialogTitle} embedded media`}
-												loading="lazy"
-												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-												allowfullscreen
-												referrerpolicy="strict-origin-when-cross-origin"
-											></iframe>
-										) : (
-											<p class="ama-dialog-fallback">Media unavailable for this AMA item yet.</p>
-										)
-									}
+								{
+									item.media && (
+										<div class="ama-dialog-media">
+											{
+												item.media.kind === "image" && hasMediaSrc ? (
+													<img
+														class="ama-dialog-media-image"
+														src={item.media.src}
+														alt={item.media.alt ?? `${dialogTitle} media`}
+														loading="lazy"
+													/>
+												) : item.media.kind === "video" && hasMediaSrc ? (
+													<video
+														class="ama-dialog-media-video"
+														autoplay
+														muted
+														loop
+														playsinline
+														preload="metadata"
+														aria-label={item.media.alt ?? `${dialogTitle} video`}
+													>
+														<source src={item.media.src} />
+													</video>
+												) : item.media.kind === "iframe" && hasMediaSrc ? (
+													<iframe
+														class="ama-dialog-media-frame"
+														src={item.media.src}
+														title={`${dialogTitle} embedded media`}
+														loading="lazy"
+														allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+														allowfullscreen
+														referrerpolicy="strict-origin-when-cross-origin"
+													></iframe>
+												) : (
+													<p class="ama-dialog-fallback">Media unavailable for this AMA item yet.</p>
+												)
+											}
 
-									{
-										item.media?.caption && (
-											<p class="ama-dialog-caption">{item.media.caption}</p>
-										)
-									}
-								</div>
+											{
+												item.media.caption && hasMediaSrc && (
+													<p class="ama-dialog-caption">{item.media.caption}</p>
+												)
+											}
+										</div>
+									)
+								}
 
 								<p class="ama-dialog-text">{item.body}</p>
 							</div>
