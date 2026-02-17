@@ -1,0 +1,38 @@
+.panel {
+	background: var(--panel-bg);
+	border: 1px solid var(--panel-border);
+	border-radius: var(--panel-radius);
+	padding: var(--panel-padding-mobile);
+	box-shadow: var(--panel-shadow);
+}
+
+@media (min-width: 640px) {
+	.panel {
+		padding: var(--panel-padding-desktop);
+	}
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+	.panel {
+		-webkit-backdrop-filter: blur(var(--panel-blur));
+		backdrop-filter: blur(var(--panel-blur));
+	}
+}
+
+.page-block {
+	background: var(--surface);
+	border: 1px solid var(--surface-border);
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 10px 30px var(--surface-shadow);
+}
+
+.page-block + .page-block {
+	margin-top: 1rem;
+}
+
+.page-block + .panel,
+.panel + .page-block,
+.panel + .panel {
+	margin-top: 1rem;
+}

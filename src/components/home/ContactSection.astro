@@ -1,0 +1,17 @@
+---
+interface Props {
+	email: string;
+	sectionClass?: string;
+}
+
+const {
+	email,
+	sectionClass = "contact-section",
+} = Astro.props as Props;
+---
+
+<section class:list={["section", sectionClass]}>
+	<p>
+		Contact: <a href={`mailto:${email}`}>{email}</a>
+	</p>
+</section>

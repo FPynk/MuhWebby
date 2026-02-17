@@ -1,0 +1,53 @@
+a {
+	color: var(--link);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:hover,
+button:hover,
+[role="button"]:hover,
+summary:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+	cursor: url("/MuhWebby/cursors/cLoNe oLd.cur"), pointer;
+}
+
+.site-main h1,
+.site-main h2,
+.site-main h3,
+.site-main h4,
+.site-main h5,
+.site-main h6 {
+	font-family: "Geist Mono", "Geist Mono Local", ui-monospace;
+	font-weight: 700;
+}
+
+.site-main p,
+.site-main li,
+.site-main a {
+	font-weight: 400;
+}
+
+/* Utility for optional retro-styled text blocks/headings. */
+.font-special {
+	font-family: var(--font-special);
+	font-weight: 400;
+	line-height: 1;
+	letter-spacing: 0.02em;
+}
+
+h1 {
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}

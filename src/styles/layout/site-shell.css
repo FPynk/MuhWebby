@@ -1,0 +1,53 @@
+.site-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem 1.5rem;
+	font-family: "Geist Mono", "Geist Mono Local", ui-monospace;
+	background-color: var(--header-bg);
+	color: var(--header-fg);
+	border-style: solid;
+	border-color: var(--header-border);
+	border-width: 0 0 1px;
+}
+
+.brand {
+	font-weight: 400;
+	font-size: 1.5rem;
+	letter-spacing: 0.02em;
+	color: inherit;
+}
+
+.site-nav {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.site-nav a {
+	color: var(--nav-link);
+	font-weight: 400;
+}
+
+.site-nav a:hover {
+	color: var(--nav-link-hover);
+}
+
+.site-main {
+	flex: 1;
+	width: 100%;
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 2rem 1.5rem;
+	font-family: "Geist Mono", "Geist Mono Local", ui-monospace;
+	font-weight: 400;
+}
+
+.site-footer {
+	padding: 1rem 1.5rem;
+	text-align: center;
+	background: var(--footer-bg);
+	color: var(--footer-fg);
+}

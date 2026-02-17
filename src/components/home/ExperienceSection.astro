@@ -1,0 +1,36 @@
+---
+import type { ExperienceItem } from "../../types/home";
+
+interface Props {
+	title: string;
+	items: ExperienceItem[];
+	sectionId?: string;
+	sectionClass?: string;
+}
+
+const {
+	title,
+	items,
+	sectionId = "experience",
+	sectionClass = "experience-section",
+} = Astro.props as Props;
+---
+
+<section id={sectionId} class:list={["section", sectionClass]}>
+	<h2 class="section-title">{title}</h2>
+	<ul class="experience-list">
+		{
+			items.map((item) => (
+				<li class="scanline-panel experience-panel scanlines">
+					<figure>
+						<div class="experience-logo">
+							<img src={item.imgSrc} alt={item.title} loading="lazy" />
+						</div>
+						<h3 class="experience-company">{item.title}</h3>
+						<figcaption class="experience-caption">{item.caption}</figcaption>
+					</figure>
+				</li>
+			))
+		}
+	</ul>
+</section>

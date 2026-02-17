@@ -1,0 +1,38 @@
+---
+import type { ProjectItem } from "../../types/home";
+
+interface Props {
+	title: string;
+	items: ProjectItem[];
+	sectionId?: string;
+	sectionClass?: string;
+}
+
+const {
+	title,
+	items,
+	sectionId = "projects",
+	sectionClass = "projects-section",
+} = Astro.props as Props;
+---
+
+<section id={sectionId} class:list={["section", sectionClass]}>
+	<h2 class="section-title">{title}</h2>
+	<ul class="project-grid">
+		{
+			items.map((project) => (
+				<li>
+					<a href={project.href}>
+						<article class="scanline-panel projects-panel scanlines">
+							<header>
+								<h3>{project.title}</h3>
+								<span aria-hidden="true">↗</span>
+							</header>
+							<p>{project.subtitle}</p>
+						</article>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</section>

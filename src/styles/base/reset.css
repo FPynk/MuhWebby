@@ -1,0 +1,13 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	color: var(--foreground);
+	background: var(--background);
+	cursor: url("/MuhWebby/cursors/cLoNe 01.cur"), auto;
+}

@@ -1,0 +1,11 @@
+---
+interface Props {
+	text?: string;
+}
+
+const { text = "Watchu lookin at ʕ·͡ᴥ·ʔ" } = Astro.props as Props;
+---
+
+<footer class="site-footer">
+	{text}
+</footer>

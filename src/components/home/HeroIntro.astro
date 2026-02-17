@@ -1,0 +1,50 @@
+---
+import type { SocialLink } from "../../types/home";
+
+interface Props {
+	heading: string;
+	subheading: string;
+	socialLinks: SocialLink[];
+	avatarSrc: string;
+	avatarAlt: string;
+	tagline: string;
+	sectionId?: string;
+	sectionClass?: string;
+}
+
+const {
+	heading,
+	subheading,
+	socialLinks,
+	avatarSrc,
+	avatarAlt,
+	tagline,
+	sectionId = "about",
+	sectionClass = "about-section",
+} = Astro.props as Props;
+---
+
+<section id={sectionId} class:list={["section", "hero", sectionClass]}>
+	<div class="hero-main scanlines">
+		<h1>{heading}</h1>
+		<p>{subheading}</p>
+		<p class="social">
+			{
+				socialLinks.map((link, index) => (
+					<>
+						{
+							index > 0 && (
+								<span aria-hidden="true">•</span>
+							)
+						}
+						<a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+					</>
+				))
+			}
+		</p>
+	</div>
+	<div class="avatar">
+		<img src={avatarSrc} alt={avatarAlt} loading="lazy" />
+	</div>
+	<p class="tagline">{tagline}</p>
+</section>

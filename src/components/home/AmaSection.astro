@@ -1,0 +1,124 @@
+---
+import type { AmaItem } from "../../types/home";
+
+interface Props {
+	title: string;
+	items: AmaItem[];
+	sectionId?: string;
+	sectionClass?: string;
+}
+
+const {
+	title,
+	items,
+	sectionId = "ama",
+	sectionClass = "ama-section",
+} = Astro.props as Props;
+---
+
+<section id={sectionId} class:list={["section", sectionClass]} data-ama-section>
+	<h2 class="section-title">{title}</h2>
+	<div class="ama-stage">
+		<div class="ama-background" aria-hidden="true">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div class="ama-cards">
+			{
+				items.map((item, index) => {
+					const dialogId = `ama-dialog-${index}`;
+					return (
+						<button
+							type="button"
+							class="ama-card ama-card-trigger scanline-panel ama-panel scanlines"
+							aria-haspopup="dialog"
+							aria-controls={dialogId}
+							data-dialog-id={dialogId}
+						>
+							<span class="ama-emoji" aria-hidden="true">{item.emoji}</span>
+							<h3 class="ama-card-title">{item.title}</h3>
+						</button>
+					);
+				})
+			}
+		</div>
+	</div>
+
+	<div class="ama-dialog-layer">
+		{
+			items.map((item, index) => {
+				const dialogId = `ama-dialog-${index}`;
+				const dialogTitle = `${item.emoji} ${item.title}`;
+				const hasMediaSrc = Boolean(item.media?.src?.trim());
+				return (
+					<dialog id={dialogId} class="ama-dialog" aria-labelledby={`${dialogId}-title`}>
+						<div class="ama-dialog-shell">
+							<header class="ama-dialog-header">
+								<h3 id={`${dialogId}-title`} class="ama-dialog-title">{dialogTitle}</h3>
+								<button
+									type="button"
+									class="ama-dialog-close"
+									aria-label={`Close ${dialogTitle} details`}
+									data-dialog-close
+								>
+									✕
+								</button>
+							</header>
+
+							<div class="ama-dialog-body">
+								<div class="ama-dialog-media">
+									{
+										item.media?.kind === "image" && hasMediaSrc ? (
+											<img
+												class="ama-dialog-media-image"
+												src={item.media.src}
+												alt={item.media.alt ?? `${dialogTitle} media`}
+												loading="lazy"
+											/>
+										) : item.media?.kind === "video" && hasMediaSrc ? (
+											<video
+												class="ama-dialog-media-video"
+												controls
+												preload="metadata"
+												aria-label={item.media.alt ?? `${dialogTitle} video`}
+											>
+												<source src={item.media.src} />
+											</video>
+										) : item.media?.kind === "iframe" && hasMediaSrc ? (
+											<iframe
+												class="ama-dialog-media-frame"
+												src={item.media.src}
+												title={`${dialogTitle} embedded media`}
+												loading="lazy"
+												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+												allowfullscreen
+												referrerpolicy="strict-origin-when-cross-origin"
+											></iframe>
+										) : (
+											<p class="ama-dialog-fallback">Media unavailable for this AMA item yet.</p>
+										)
+									}
+
+									{
+										item.media?.caption && (
+											<p class="ama-dialog-caption">{item.media.caption}</p>
+										)
+									}
+								</div>
+
+								<p class="ama-dialog-text">{item.body}</p>
+							</div>
+						</div>
+					</dialog>
+				);
+			})
+		}
+	</div>
+</section>
+
+<script>
+	import { initAmaDialogs } from "../../scripts/ama-dialog";
+
+	initAmaDialogs();
+</script>

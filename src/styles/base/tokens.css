@@ -1,0 +1,88 @@
+:root {
+	font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+	line-height: 1.6;
+	color-scheme: light dark;
+	--font-special: "VT323", "Geist Mono", "Geist Mono Local";
+	--background: #f8fafc;
+	--foreground: #0f172a;
+	--link: #2563eb;
+	--surface: #ffffff;
+	--surface-border: #e2e8f0;
+	--surface-shadow: rgba(15, 23, 42, 0.05);
+	--panel-bg: rgba(255, 255, 255, 0.62);
+	--panel-border: rgba(15, 23, 42, 0.2);
+	--panel-radius: 12px;
+	--panel-padding-mobile: 12px;
+	--panel-padding-desktop: 16px;
+	--panel-blur: 12px;
+	--panel-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+	--header-bg: oklch(0.21 0.034 264.665);
+	--header-fg: #ffffff;
+	--header-border: oklch(0.373 0.034 259.733);
+	--nav-link: oklch(0.707 0.022 261.325);
+	--nav-link-hover: oklch(0.707 0.022 261.325);
+	--footer-bg: #0f172a;
+	--footer-fg: #cbd5e1;
+	--landing-experience-bg: rgba(14, 82, 104, 0.9);
+	--landing-experience-border: #2ec4d6;
+	--landing-experience-fg: oklch(0.82 0.09 215);
+	--landing-experience-shadow: rgba(14, 82, 104, 0.25);
+	--landing-projects-bg: rgba(66, 41, 122, 0.9);
+	--landing-projects-border: #8b5cf6;
+	--landing-projects-fg: oklch(0.78 0.12 300);
+	--landing-projects-shadow: rgba(66, 41, 122, 0.25);
+	--landing-ama-bg: rgba(110, 66, 24, 0.9);
+	--landing-ama-border: #f59e0b;
+	--landing-ama-fg: oklch(0.84 0.11 82);
+	--landing-ama-shadow: rgba(110, 66, 24, 0.25);
+	--landing-hero-border: #2f68c5;
+	--landing-hero-bg: rgba(24, 51, 140, 0.9);
+	--landing-hero-fg: oklch(0.707 0.165 254.624);
+	--landing-hero-shadow: rgba(24, 51, 140, 0.25);
+	--overlay-bg: rgba(15, 23, 42, 0.72);
+	--overlay-bg-light: rgba(15, 23, 42, 0.5);
+	--overlay-fg: #f8fafc;
+	--overlay-kbd-border: rgba(248, 250, 252, 0.4);
+	--overlay-kbd-bg: rgba(248, 250, 252, 0.12);
+	--experimental-icon: #facc15;
+	--experimental-link: #475569;
+	--experimental-link-hover: #0f172a;
+	--experimental-card-border: #3b82f6;
+	--experimental-card-bg: rgba(30, 64, 175, 0.9);
+	--experimental-card-shadow: rgba(30, 64, 175, 0.25);
+	--experimental-card-icon: #60a5fa;
+	--ama-crt-glow: rgba(255, 207, 112, 0.45);
+	--ama-crt-glow-strong: rgba(255, 187, 79, 0.62);
+	--ama-focus-ring: rgba(255, 214, 129, 0.9);
+	--ama-dialog-backdrop: rgba(7, 10, 18, 0.72);
+	--ama-dialog-bg: color-mix(in srgb, var(--surface) 92%, #000 8%);
+	--ama-dialog-border: color-mix(in srgb, var(--landing-ama-border) 60%, var(--surface-border) 40%);
+	--ama-dialog-shadow: 0 24px 80px rgba(0, 0, 0, 0.52);
+	--ama-dialog-header-bg: color-mix(in srgb, var(--landing-ama-bg) 48%, var(--surface) 52%);
+	--ama-dialog-title: var(--landing-ama-fg);
+	--ama-dialog-copy: var(--foreground);
+	--ama-dialog-muted: color-mix(in srgb, var(--foreground) 72%, var(--surface) 28%);
+	color: var(--foreground);
+	background: var(--background);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+		--link: #7ab7ff;
+		--surface: #12161f;
+		--surface-border: #2a3444;
+		--surface-shadow: rgba(0, 0, 0, 0.45);
+		--panel-bg: rgba(18, 22, 31, 0.62);
+		--panel-border: rgba(183, 197, 223, 0.24);
+		--panel-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+		--header-bg: oklch(0.21 0.034 264.665);
+		--header-fg: #ededed;
+		--header-border: oklch(0.373 0.034 259.733);
+		--nav-link: oklch(0.707 0.022 261.325);
+		--nav-link-hover: oklch(0.707 0.022 261.325);
+		--footer-bg: #090d16;
+		--footer-fg: #b7c5df;
+	}
+}

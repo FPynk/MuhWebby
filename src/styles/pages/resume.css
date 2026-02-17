@@ -1,0 +1,26 @@
+.resume-actions {
+	margin-bottom: 1rem;
+}
+
+.resume-download {
+	display: inline-block;
+	padding: 0.5rem 0.875rem;
+	border: 1px solid var(--surface-border);
+	border-radius: 8px;
+	background: var(--header-bg);
+	color: var(--header-fg);
+	text-decoration: none;
+}
+
+.resume-download:hover {
+	opacity: 0.9;
+	text-decoration: none;
+}
+
+.resume-embed {
+	width: 100%;
+	height: min(80vh, 1000px);
+	border: 1px solid var(--surface-border);
+	border-radius: 8px;
+	background: #fff;
+}

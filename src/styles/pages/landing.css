@@ -23,9 +23,9 @@
 	border: 2px solid transparent;
 }
 
-.section-title {
+.site-main h2.section-title {
 	margin: 0 0 0.5rem;
-	font-family: "VT323", "Geist Mono", "Geist Mono Local";
+	font-family: var(--font-special);
 	font-size: clamp(2rem, 5vw, 3.25rem);
 	font-weight: 400;
 	line-height: 1;
@@ -36,6 +36,11 @@
 	border-color: var(--landing-experience-border);
 	color: var(--landing-experience-fg);
 	box-shadow: 0 14px 36px var(--landing-experience-shadow);
+	--glow-border: var(--landing-experience-border);
+	--glow-base-shadow: var(--landing-experience-shadow);
+	--glow-ring: color-mix(in srgb, var(--landing-experience-border) 72%, white 28%);
+	--glow-soft: color-mix(in srgb, var(--landing-experience-border) 64%, transparent);
+	--glow-strong: color-mix(in srgb, var(--landing-experience-border) 56%, transparent);
 }
 
 .experience-section .scanline-panel {
@@ -47,6 +52,11 @@
 	border-color: var(--landing-projects-border);
 	color: var(--landing-projects-fg);
 	box-shadow: 0 14px 36px var(--landing-projects-shadow);
+	--glow-border: var(--landing-projects-border);
+	--glow-base-shadow: var(--landing-projects-shadow);
+	--glow-ring: color-mix(in srgb, var(--landing-projects-border) 72%, white 28%);
+	--glow-soft: color-mix(in srgb, var(--landing-projects-border) 64%, transparent);
+	--glow-strong: color-mix(in srgb, var(--landing-projects-border) 56%, transparent);
 }
 
 .projects-section .scanline-panel {
@@ -176,6 +186,12 @@
 	flex: 1;
 	text-align: center;
 	color: inherit;
+	border-radius: 14px;
+	outline-offset: 2px;
+}
+
+.project-grid a:focus-visible {
+	outline: 2px solid color-mix(in srgb, var(--landing-projects-border) 74%, white 26%);
 }
 
 .project-grid article {
@@ -189,6 +205,7 @@
 
 .project-grid a:hover {
 	color: inherit;
+	text-decoration: none;
 }
 
 .project-grid article header {
@@ -246,5 +263,271 @@
 }
 
 .ama-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 220px;
 	text-align: center;
+}
+
+.ama-card-trigger {
+	width: 100%;
+	font: inherit;
+	color: var(--landing-ama-fg);
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	--glow-border: var(--landing-ama-border);
+	--glow-base-shadow: var(--landing-ama-shadow);
+	--glow-ring: var(--ama-focus-ring);
+	--glow-soft: var(--ama-crt-glow);
+	--glow-strong: var(--ama-crt-glow-strong);
+}
+
+/* Glow foundation */
+.experience-panel,
+.projects-panel,
+.ama-card-trigger {
+	position: relative;
+	transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.experience-panel::after,
+.projects-panel::after,
+.ama-card-trigger::after {
+	content: "";
+	position: absolute;
+	inset: -2px;
+	border-radius: inherit;
+	pointer-events: none;
+	box-shadow:
+		0 0 0 1px var(--glow-ring),
+		0 0 18px var(--glow-soft),
+		0 0 44px var(--glow-strong);
+	opacity: 0;
+	transition: opacity 180ms ease;
+}
+
+/* Glow activation: hover */
+@media (hover: hover) and (pointer: fine) {
+	.experience-panel:hover,
+	.project-grid a:hover .projects-panel,
+	.ama-card-trigger:hover {
+		border-color: color-mix(in srgb, var(--glow-border) 62%, white 38%);
+		box-shadow:
+			0 14px 36px var(--glow-base-shadow),
+			0 0 0 1px var(--glow-ring),
+			0 0 22px var(--glow-soft),
+			0 0 54px var(--glow-strong);
+	}
+
+	.experience-panel:hover::after,
+	.project-grid a:hover .projects-panel::after,
+	.ama-card-trigger:hover::after {
+		opacity: 0.88;
+	}
+}
+
+/* Glow activation: focus-visible */
+.project-grid a:focus-visible .projects-panel,
+.ama-card-trigger:focus-visible {
+	border-color: color-mix(in srgb, var(--glow-border) 62%, white 38%);
+	box-shadow:
+		0 14px 36px var(--glow-base-shadow),
+		0 0 0 1px var(--glow-ring),
+		0 0 22px var(--glow-soft),
+		0 0 54px var(--glow-strong);
+}
+
+.project-grid a:focus-visible .projects-panel::after,
+.ama-card-trigger:focus-visible::after {
+	opacity: 0.88;
+}
+
+.ama-card-trigger:focus-visible {
+	outline: 2px solid var(--ama-focus-ring);
+	outline-offset: 2px;
+}
+
+/* Reduced-motion */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+	.experience-panel:hover::after,
+	.project-grid a:hover .projects-panel::after,
+	.ama-card-trigger:hover::after {
+		animation: ama-crt-pulse 1.9s ease-in-out infinite;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.project-grid a:focus-visible .projects-panel::after,
+	.ama-card-trigger:focus-visible::after {
+		animation: ama-crt-pulse 1.9s ease-in-out infinite;
+	}
+}
+
+@keyframes ama-crt-pulse {
+	0%,
+	100% {
+		opacity: 0.6;
+	}
+
+	50% {
+		opacity: 0.95;
+	}
+}
+
+.ama-emoji {
+	display: block;
+	font-size: 4em;
+	line-height: 1;
+}
+
+.ama-card-title {
+	margin: 0;
+}
+
+.ama-dialog {
+	width: min(900px, 90vw);
+	max-height: min(86vh, 780px);
+	padding: 0;
+	border: 1px solid var(--ama-dialog-border);
+	border-radius: 16px;
+	background: var(--ama-dialog-bg);
+	color: var(--ama-dialog-copy);
+	box-shadow: var(--ama-dialog-shadow);
+	overflow: hidden;
+}
+
+.ama-dialog::backdrop {
+	background: var(--ama-dialog-backdrop);
+}
+
+.ama-dialog-shell {
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	max-height: inherit;
+}
+
+.ama-dialog-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.9rem 1.15rem;
+	background: var(--ama-dialog-header-bg);
+	border-bottom: 1px solid var(--ama-dialog-border);
+}
+
+.ama-dialog-title {
+	margin: 0;
+	font-family: "VT323", "Geist Mono", "Geist Mono Local";
+	font-size: clamp(1.65rem, 2.6vw, 2.4rem);
+	line-height: 1;
+	color: var(--ama-dialog-title);
+}
+
+.ama-dialog-close {
+	flex-shrink: 0;
+	border: 1px solid var(--ama-dialog-border);
+	border-radius: 999px;
+	padding: 0.25rem 0.6rem;
+	background: color-mix(in srgb, var(--surface) 82%, transparent);
+	color: var(--ama-dialog-copy);
+	font-family: "Geist Mono", "Geist Mono Local", ui-monospace;
+	font-size: 1rem;
+	line-height: 1;
+}
+
+.ama-dialog-body {
+	overflow: auto;
+	display: grid;
+	justify-items: center;
+	align-content: start;
+	gap: 1rem;
+	padding: 1.05rem 1.2rem 1.3rem;
+	text-align: center;
+}
+
+.ama-dialog-media {
+	width: min(100%, 640px);
+	display: grid;
+	justify-items: center;
+	gap: 0.65rem;
+}
+
+.ama-dialog-media-image,
+.ama-dialog-media-video,
+.ama-dialog-media-frame {
+	display: block;
+	width: 100%;
+	max-height: min(50vh, 440px);
+	border: 1px solid var(--ama-dialog-border);
+	border-radius: 12px;
+	background: color-mix(in srgb, var(--surface) 92%, black 8%);
+}
+
+.ama-dialog-media-image,
+.ama-dialog-media-video {
+	object-fit: cover;
+}
+
+.ama-dialog-media-frame {
+	aspect-ratio: 16 / 9;
+}
+
+.ama-dialog-caption {
+	margin: 0;
+	font-size: 0.9rem;
+	color: var(--ama-dialog-muted);
+}
+
+.ama-dialog-fallback {
+	margin: 0;
+	padding: 2rem 1rem;
+	width: 100%;
+	border: 1px dashed var(--ama-dialog-border);
+	border-radius: 12px;
+	color: var(--ama-dialog-muted);
+	font-size: 0.98rem;
+}
+
+.ama-dialog-text {
+	margin: 0;
+	max-width: 62ch;
+	font-size: 1rem;
+	line-height: 1.65;
+	color: var(--ama-dialog-copy);
+}
+
+@media (max-width: 640px) {
+	.ama-cards {
+		grid-template-columns: minmax(220px, 286px);
+		justify-content: center;
+	}
+
+	.ama-cards > :last-child:nth-child(3n + 1),
+	.ama-cards > :nth-last-child(2):nth-child(3n + 1),
+	.ama-cards > :last-child:nth-child(3n + 2) {
+		grid-column: auto;
+	}
+
+	.ama-cards > :nth-last-child(2):nth-child(3n + 1),
+	.ama-cards > :last-child:nth-child(3n + 2) {
+		transform: none;
+	}
+
+	.ama-dialog {
+		width: 92vw;
+		max-height: 90vh;
+	}
+
+	.ama-dialog-header {
+		padding: 0.8rem 0.92rem;
+	}
+
+	.ama-dialog-body {
+		padding: 0.9rem 0.92rem 1.05rem;
+	}
 }

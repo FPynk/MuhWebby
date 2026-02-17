@@ -1,0 +1,39 @@
+---
+import { withBase } from "../../utils/site";
+
+interface NavLink {
+	label: string;
+	href: string;
+}
+
+interface Props {
+	brandLabel?: string;
+	brandHref?: string;
+	navLinks?: NavLink[];
+}
+
+const defaultLinks: NavLink[] = [
+	{ label: "Home", href: withBase() },
+	{ label: "Projects", href: withBase("projects/") },
+	{ label: "Resume", href: withBase("resume/") },
+	{ label: "Pong", href: withBase("pong/") },
+	{ label: "Experimental", href: withBase("experimental/") },
+];
+
+const {
+	brandLabel = "Andrew Loh",
+	brandHref = withBase(),
+	navLinks = defaultLinks,
+} = Astro.props as Props;
+---
+
+<header class="site-header">
+	<a class="brand font-special" href={brandHref}>{brandLabel}</a>
+	<nav class="site-nav" aria-label="Primary">
+		{
+			navLinks.map((link) => (
+				<a href={link.href}>{link.label}</a>
+			))
+		}
+	</nav>
+</header>
